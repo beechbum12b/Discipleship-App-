@@ -12,8 +12,18 @@ var Contact = bookshelf.Model.extend({
 });
 
 var Hapi = require('hapi');
+    config = require('./config/settings');
 var server = new Hapi.Server();
-server.connection({ host: '0.0.0.0', port: 3000 });
+server.connection({ host: '0.0.0.0', port: config.port });
+module.exports = server;
+
+server.route({
+    method: 'GET',
+    path: '/',
+    handler: function (request, reply) {
+        reply('Retain!');
+    }
+});
 
 server.route({
     method: 'GET',
@@ -28,7 +38,7 @@ server.route({
     path: '/api/users/{id}',
     handler: function (request, reply) {
         new Contact({ id: request.params.id }).fetch().then(function (contact) {
-            reply('{"cantact:" ' + JSON.stringify(contact) + '}');
+            reply('{"contact:" ' + JSON.stringify(contact) + '}');
         });
     }
 });
