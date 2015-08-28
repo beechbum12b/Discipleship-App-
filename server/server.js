@@ -15,34 +15,13 @@ var Hapi = require('hapi');
     config = require('./config/settings');
 var server = new Hapi.Server();
 server.connection({ host: '0.0.0.0', port: config.port });
+
 module.exports = server;
 
-server.route({
-    method: 'GET',
-    path: '/',
-    handler: function (request, reply) {
-        reply('Retain!');
-    }
-});
+// Add the server routes
+server.route(require('./config/routes'));
 
-server.route({
-    method: 'GET',
-    path: '/api/users',
-    handler: function (request, reply) {
-        reply('Hello, world!');
-    }
-});
-
-server.route({
-    method: 'GET',
-    path: '/api/users/{id}',
-    handler: function (request, reply) {
-        new Contact({ id: request.params.id }).fetch().then(function (contact) {
-            reply('{"contact:" ' + JSON.stringify(contact) + '}');
-        });
-    }
-});
 
 server.start(function () {
-    console.log('Server running at:', server.info.uri);
+    console.log('Server running at your moms house:', server.info.uri);
 });
