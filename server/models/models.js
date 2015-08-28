@@ -1,8 +1,13 @@
 var bookshelf = require('../config/bookshelf');
-var Contact = bookshelf.Model.extend({
+var User = bookshelf.Model.extend({
     tableName: 'users'
 });
 
+var Prayer_request = bookshelf.Model.extend({
+    tableName: 'prayer_requests'
+});
+
 module.exports = {
-    Contact: Contact
+    User: User,
+    Prayer_request: Prayer_request
 };

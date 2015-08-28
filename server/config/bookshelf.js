@@ -1,12 +1,6 @@
-var knexConfig = require(knexConfig[settings.environment]);
+var knexConfig = require('../knexfile');
 var settings = require('./settings');
-module.exports = bookshelf;
-
-var knex = require('knex')({
-    client: 'sqlite3',
-    connection: {
-        filename: './dev.sqlite3'
-    }
-});
+var knex = require('knex')(knexConfig[settings.environment]);
 
 var bookshelf = require('bookshelf')(knex);
+module.exports = bookshelf;

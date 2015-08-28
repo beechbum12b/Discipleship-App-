@@ -1,40 +1,17 @@
-var server = require('../server');  //,
-    //controllers = require('../controllers/controllers');
-
+var controllers = require('../controllers/controllers');
 
 module.exports =
 [
-    { method: 'GET', path: '/', handler: function (request, reply) { reply('I haz the root!'); } },
-    { method: 'GET', path: '/api/users', handler: function (request, reply) { reply('Hello, world!'); } },
-    { method: 'GET', path: '/api/lala', handler: function (request, reply) { reply('I win!'); } },
-           {
-               method: 'GET',
-               path: '/api/whatsamonkeysay',
-               handler:
-                   function (request, reply) {
-
-                       reply('Ooh ah ah');
-
-
-                   }
-           },
-
-    {
-        method: 'GET',
-        path: '/api/users/{id}',
-        handler:
-            function (request, reply) {
-                new Contact({ id: request.params.id })
-                    .fetch()
-                    .then
-                    (
-                        function (contact) {
-                            reply('{"contact:" ' + JSON.stringify(contact) + '}');
-                        }
-                    );
-            }
-    }
-
-
+    { method: 'GET', path: '/api/users', config: controllers.users },
+    { method: 'GET', path: '/api/users/{id}', config: controllers.user },
+    { method: 'POST', path: '/api/users', config: controllers.userCreate },
+    { method: 'PUT', path: '/api/users/{id}', config: controllers.userUpdate },
+    { method: 'DELETE', path: '/api/users/{id}', config: controllers.userDelete },
+    { method: 'GET', path: '/andysroute', handler: function (request, reply) { reply('Ooh ah ah'); } },
+    { method: 'GET', path: '/api/prayer_requests', config: controllers.prayer_requests },
+    { method: 'GET', path: '/api/prayer_requests/{id}', config: controllers.prayer_request },
+    { method: 'POST', path: '/api/prayer_requests', config: controllers.prayer_requestCreate },
+    { method: 'PUT', path: '/api/prayer_requests/{id}', config: controllers.prayer_requestUpdate },
+    { method: 'DELETE', path: '/api/prayer_requests/{id}', config: controllers.prayer_requestDelete },
 
 ];
