@@ -38,13 +38,15 @@ module.exports = {
         handler: function(request, reply) {
             request.payload.user.created_at = new Date();
             request.payload.user.updated_at = new Date();
+
             new models.User(request.payload.user).save().then(function(user) {
-                reply(utils.formatJson('user', user));
+                //reply(utils.formatJson('user', user));
+                reply(user);
             });
         },
         validate: {
             payload: validators
-        } 
+        }
     },
     prayer_requestCreate: {
         handler: function(request, reply) {
@@ -53,8 +55,8 @@ module.exports = {
             new models.Prayer_request(request.payload.prayer_request).save().then(function (prayer_request) {
                 reply(utils.formatJson('prayer_request', prayer_request));
             });
-        
-        } 
+
+        }
     },
     userUpdate: {
         handler: function (request, reply) {
@@ -77,7 +79,7 @@ module.exports = {
           },
         validate: {
             payload: validators
-        } 
+        }
     },
 
     prayer_requestUpdate: {
